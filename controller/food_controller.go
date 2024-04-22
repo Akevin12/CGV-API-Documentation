@@ -13,6 +13,9 @@ import (
 // @Param customerId path int true "Customer ID"
 // @Param body body models.Chart true "Chart details"
 // @Success 200 {object} models.ChartResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/chart [post]
 func AddToChart(c *gin.Context) {
 }
@@ -26,6 +29,9 @@ func AddToChart(c *gin.Context) {
 // @Param customerId path int true "Customer ID"
 // @Param body body models.Chart true "Chart details"
 // @Success 200 {object} models.ChartResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/chart [put]
 func UpdateChart(c *gin.Context) {
 }
@@ -38,6 +44,8 @@ func UpdateChart(c *gin.Context) {
 // @Produce json
 // @Param ChartId path int true "Chart ID"
 // @Success 200 {object} models.Response
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/chart [delete]
 func DeleteChart(c *gin.Context) {
 }

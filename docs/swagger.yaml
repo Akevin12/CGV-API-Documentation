@@ -52,6 +52,13 @@ definitions:
       status:
         type: integer
     type: object
+  models.ErrorResponse:
+    properties:
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
   models.LoginRequest:
     properties:
       email:
@@ -247,6 +254,14 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Logout Account
       tags:
       - Auth
@@ -268,6 +283,14 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Delete Chart
       tags:
       - Customer
@@ -294,6 +317,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.ChartResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Add To Chart
       tags:
       - Customer
@@ -320,6 +355,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.ChartResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Update Chart
       tags:
       - Customer
@@ -341,6 +388,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.MemberResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Get Member By Id
       tags:
       - Customer
@@ -362,6 +421,14 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.CustomerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Get Customer
       tags:
       - Customer
@@ -388,6 +455,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.CustomerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Update Customer
       tags:
       - Customer
@@ -409,6 +488,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.TicketsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Get Payments
       tags:
       - Customer
@@ -435,6 +526,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.TicketResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Create Ticket
       tags:
       - Customer
@@ -461,6 +564,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.TicketResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Get Payment
       tags:
       - Customer
@@ -487,6 +602,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.TicketResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Confirm Payment
       tags:
       - Customer
@@ -508,6 +635,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Delete Wishlist
       tags:
       - Customer
@@ -528,6 +667,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.MovieSchedulesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Get Wishlist
       tags:
       - Customer
@@ -554,6 +705,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.MovieSchedulesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Add Wishlist
       tags:
       - Customer
@@ -576,6 +739,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.CustomerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Login Customer
       tags:
       - Auth
@@ -598,6 +773,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.CustomerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Create New Customer
       tags:
       - Customer
@@ -619,6 +806,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.MovieSchedulesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Get Schedule
       tags:
       - Customer
@@ -645,6 +844,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.MovieScheduleResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Get all schedules for a movie by ID
       tags:
       - Customer
@@ -669,6 +880,14 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.MoviesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
       summary: Search movies by title
       tags:
       - Guest

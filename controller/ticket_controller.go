@@ -12,6 +12,9 @@ import (
 // @Produce json
 // @Param customerId path int true "Customer ID"
 // @Success 200 {object} models.TicketsResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/tickets [get]
 func GetTickets(c *gin.Context) {
 }
@@ -25,6 +28,9 @@ func GetTickets(c *gin.Context) {
 // @Param customerId path int true "Customer ID"
 // @Param body body models.ScheduleTicket true "Schedule Detail"
 // @Success 200 {object} models.TicketResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/tickets [post]
 func CreateTicket(c *gin.Context) {
 }
@@ -38,6 +44,9 @@ func CreateTicket(c *gin.Context) {
 // @Param customerId path int true "Customer ID"
 // @Param ticketId path int true "Customer ID"
 // @Success 200 {object} models.TicketResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/tickets/{ticketId} [get]
 func GetTicket(c *gin.Context) {
 }
@@ -51,6 +60,9 @@ func GetTicket(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Success 200 {object} models.TicketResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/tickets/{ticketId}/payment [post]
 func ConfirmPayment(c *gin.Context) {
 }

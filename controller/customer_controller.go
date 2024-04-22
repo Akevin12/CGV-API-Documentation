@@ -12,6 +12,9 @@ import (
 // @Produce json
 // @Param body body models.Customer true "Customer details"
 // @Success 200 {object} models.CustomerResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/registration [post]
 func AddCustomer(c *gin.Context) {
 }
@@ -24,6 +27,9 @@ func AddCustomer(c *gin.Context) {
 // @Produce json
 // @Param body body models.LoginRequest true "Login details"
 // @Success 200 {object} models.CustomerResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/auth/login [post]
 func LoginCustomer(c *gin.Context) {
 }
@@ -33,6 +39,8 @@ func LoginCustomer(c *gin.Context) {
 // @Description Logout Account admin and customer
 // @Tags Auth
 // @Success 200 {object} models.Response
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /auth/logout [delete]
 func LogoutAccount(c *gin.Context) {
 }
@@ -45,6 +53,8 @@ func LogoutAccount(c *gin.Context) {
 // @Produce json
 // @Param customerId path int true "Customer ID"
 // @Success 200 {object} models.CustomerResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/profile [get]
 func GetCustomer(c *gin.Context) {
 }
@@ -58,6 +68,9 @@ func GetCustomer(c *gin.Context) {
 // @Param customerId path int true "Customer ID"
 // @Param body body models.Customer true "Customer details"
 // @Success 200 {object} models.CustomerResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/profile [put]
 func UpdateCustomer(c *gin.Context) {
 }
@@ -70,6 +83,9 @@ func UpdateCustomer(c *gin.Context) {
 // @Produce json
 // @Param customerId path int true "Customer ID"
 // @Success 200 {object} models.MemberResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/member [get]
 func getMemberById(c *gin.Context) {
 }

@@ -5,6 +5,11 @@ type Response struct {
 	Message string `json:"message"`
 }
 
+type ErrorResponse struct {
+	Status  int    `json:"status"`
+	Message string `json:"message"`
+}
+
 type Paging struct {
 	Limit  int `json:"limit"`
 	Offset int `json:"offset"`

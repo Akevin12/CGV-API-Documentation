@@ -12,6 +12,9 @@ import (
 // @Accept json
 // @Produce json
 // @Success 200 {object} models.MovieSchedulesResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /movies/{movieId}/schedules [get]
 func GetSchedules(c *gin.Context) {
 }
@@ -25,6 +28,9 @@ func GetSchedules(c *gin.Context) {
 // @Param movieId path string true "Movie ID"
 // @Param scheduleId path string true "Schedule ID"
 // @Success 200 {object} models.MovieScheduleResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /movies/{movieId}/schedules/{scheduleId} [get]
 func GetSchedule(c *gin.Context) {
 }
