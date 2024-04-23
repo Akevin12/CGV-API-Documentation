@@ -66,7 +66,7 @@ func GetCustomer(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param customerId path int true "Customer ID"
-// @Param body body models.Customer true "Customer details"
+// @Param body body models.CustomerEdit true "Customer details"
 // @Success 200 {object} models.CustomerResponse
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
 // @Failure 401 {object} models.ErrorResponse "Unauthorized"
@@ -75,9 +75,25 @@ func GetCustomer(c *gin.Context) {
 func UpdateCustomer(c *gin.Context) {
 }
 
+// PutCustomer godoc
+// @Summary Update Password
+// @Description Put Password
+// @Tags Customer
+// @Accept json
+// @Produce json
+// @Param customerId path int true "Customer ID"
+// @Param body body models.Password true "Password details"
+// @Success 200 {object} models.PassResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
+// @Router /customer/{customerId}/password [put]
+func UpdatePassword(c *gin.Context) {
+}
+
 // CreategetMemberById godoc
-// @Summary Get Member By Id
-// @Description Get Member By Id
+// @Summary Get Member
+// @Description Get Member
 // @Tags Customer
 // @Accept json
 // @Produce json

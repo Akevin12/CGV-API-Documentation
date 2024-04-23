@@ -308,7 +308,7 @@ const docTemplate = `{
         },
         "/customer/{customerId}/member": {
             "get": {
-                "description": "Get Member By Id",
+                "description": "Get Member",
                 "consumes": [
                     "application/json"
                 ],
@@ -318,7 +318,7 @@ const docTemplate = `{
                 "tags": [
                     "Customer"
                 ],
-                "summary": "Get Member By Id",
+                "summary": "Get Member",
                 "parameters": [
                     {
                         "type": "integer",
@@ -333,6 +333,65 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.MemberResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/customer/{customerId}/password": {
+            "put": {
+                "description": "Put Password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Update Password",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "name": "customerId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Password details",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Password"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.PassResponse"
                         }
                     },
                     "400": {
@@ -425,7 +484,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Customer"
+                            "$ref": "#/definitions/models.CustomerEdit"
                         }
                     }
                 ],
@@ -1039,7 +1098,16 @@ const docTemplate = `{
         "models.Customer": {
             "type": "object",
             "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "birthday": {
+                    "type": "string"
+                },
                 "email": {
+                    "type": "string"
+                },
+                "gender": {
                     "type": "string"
                 },
                 "id": {
@@ -1055,6 +1123,23 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CustomerEdit": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
                     "type": "string"
                 }
             }
@@ -1087,10 +1172,10 @@ const docTemplate = `{
         "models.LoginRequest": {
             "type": "object",
             "properties": {
-                "email": {
+                "password": {
                     "type": "string"
                 },
-                "password": {
+                "username": {
                     "type": "string"
                 }
             }
@@ -1211,6 +1296,37 @@ const docTemplate = `{
                 },
                 "status": {
                     "type": "integer"
+                }
+            }
+        },
+        "models.PassResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.Password"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.Password": {
+            "type": "object",
+            "properties": {
+                "confirm password": {
+                    "type": "string"
+                },
+                "current password": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "new password": {
+                    "type": "string"
                 }
             }
         },

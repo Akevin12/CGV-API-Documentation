@@ -30,7 +30,13 @@ definitions:
     type: object
   models.Customer:
     properties:
+      address:
+        type: string
+      birthday:
+        type: string
       email:
+        type: string
+      gender:
         type: string
       id:
         type: integer
@@ -41,6 +47,17 @@ definitions:
       phone:
         type: string
       username:
+        type: string
+    type: object
+  models.CustomerEdit:
+    properties:
+      address:
+        type: string
+      gender:
+        type: string
+      id:
+        type: integer
+      name:
         type: string
     type: object
   models.CustomerResponse:
@@ -61,9 +78,9 @@ definitions:
     type: object
   models.LoginRequest:
     properties:
-      email:
-        type: string
       password:
+        type: string
+      username:
         type: string
     type: object
   models.Member:
@@ -142,6 +159,26 @@ definitions:
         type: string
       status:
         type: integer
+    type: object
+  models.PassResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.Password'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.Password:
+    properties:
+      confirm password:
+        type: string
+      current password:
+        type: string
+      id:
+        type: integer
+      new password:
+        type: string
     type: object
   models.Payment:
     properties:
@@ -374,7 +411,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: Get Member By Id
+      description: Get Member
       parameters:
       - description: Customer ID
         in: path
@@ -400,7 +437,46 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrorResponse'
-      summary: Get Member By Id
+      summary: Get Member
+      tags:
+      - Customer
+  /customer/{customerId}/password:
+    put:
+      consumes:
+      - application/json
+      description: Put Password
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: integer
+      - description: Password details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.Password'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.PassResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Update Password
       tags:
       - Customer
   /customer/{customerId}/profile:
@@ -447,7 +523,7 @@ paths:
         name: body
         required: true
         schema:
-          $ref: '#/definitions/models.Customer'
+          $ref: '#/definitions/models.CustomerEdit'
       produces:
       - application/json
       responses:
