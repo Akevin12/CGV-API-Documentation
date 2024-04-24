@@ -1224,8 +1224,8 @@
                 "id": {
                     "type": "integer"
                 },
-                "rating": {
-                    "type": "number"
+                "review": {
+                    "$ref": "#/definitions/models.Review"
                 },
                 "title": {
                     "type": "string"
@@ -1353,6 +1353,17 @@
                     "type": "string"
                 },
                 "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.Review": {
+            "type": "object",
+            "properties": {
+                "Rating": {
+                    "type": "number"
+                },
+                "TotalReview": {
                     "type": "integer"
                 }
             }

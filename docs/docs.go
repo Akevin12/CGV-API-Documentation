@@ -1235,8 +1235,8 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
-                "rating": {
-                    "type": "number"
+                "review": {
+                    "$ref": "#/definitions/models.Review"
                 },
                 "title": {
                     "type": "string"
@@ -1364,6 +1364,17 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.Review": {
+            "type": "object",
+            "properties": {
+                "Rating": {
+                    "type": "number"
+                },
+                "TotalReview": {
                     "type": "integer"
                 }
             }

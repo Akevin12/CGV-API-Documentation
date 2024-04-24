@@ -1,13 +1,13 @@
 package models
 
 type Movie struct {
-	ID          int     `json:"id,omitempty"`
-	Title       string  `json:"title"`
-	Description string  `json:"description"`
-	Age         int     `json:"age"`
-	Duration    int     `json:"duration"`
-	Rating      float32 `json:"rating"`
-	Date        string  `json:"Date"`
+	ID          int    `json:"id,omitempty"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Age         int    `json:"age"`
+	Duration    int    `json:"duration"`
+	Review      Review `json:"review"`
+	Date        string `json:"Date"`
 }
 
 type MovieSchedules struct {
