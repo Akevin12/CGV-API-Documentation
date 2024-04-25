@@ -410,7 +410,9 @@ const docTemplate = `{
                         }
                     }
                 }
-            },
+            }
+        },
+        "/customer/{customerId}/chart/{chartId}": {
             "delete": {
                 "description": "Delete Chart",
                 "consumes": [
@@ -424,6 +426,13 @@ const docTemplate = `{
                 ],
                 "summary": "Delete Chart",
                 "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "name": "customerId",
+                        "in": "path",
+                        "required": true
+                    },
                     {
                         "type": "integer",
                         "description": "Chart ID",
@@ -1298,7 +1307,9 @@ const docTemplate = `{
                         }
                     }
                 }
-            },
+            }
+        },
+        "/customer/{customerId}/watchlist/{watchlistId}": {
             "delete": {
                 "description": "Delete Watchlist",
                 "consumes": [
@@ -1312,6 +1323,13 @@ const docTemplate = `{
                 ],
                 "summary": "Delete Watchlist",
                 "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "name": "customerId",
+                        "in": "path",
+                        "required": true
+                    },
                     {
                         "type": "integer",
                         "description": "Watchlist ID",

@@ -570,38 +570,6 @@ paths:
       tags:
       - Customer
   /customer/{customerId}/chart:
-    delete:
-      consumes:
-      - application/json
-      description: Delete Chart
-      parameters:
-      - description: Chart ID
-        in: path
-        name: ChartId
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Response'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-      summary: Delete Chart
-      tags:
-      - Customer
     get:
       consumes:
       - application/json
@@ -708,6 +676,44 @@ paths:
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Update Chart
+      tags:
+      - Customer
+  /customer/{customerId}/chart/{chartId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Chart
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: integer
+      - description: Chart ID
+        in: path
+        name: ChartId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Delete Chart
       tags:
       - Customer
   /customer/{customerId}/coupon:
@@ -1197,38 +1203,6 @@ paths:
       tags:
       - Customer
   /customer/{customerId}/watchlist:
-    delete:
-      consumes:
-      - application/json
-      description: Delete Watchlist
-      parameters:
-      - description: Watchlist ID
-        in: path
-        name: WatchlistId
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Response'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-      summary: Delete Watchlist
-      tags:
-      - Customer
     get:
       consumes:
       - application/json
@@ -1297,6 +1271,44 @@ paths:
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Add Watchlist
+      tags:
+      - Customer
+  /customer/{customerId}/watchlist/{watchlistId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Watchlist
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: integer
+      - description: Watchlist ID
+        in: path
+        name: WatchlistId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Delete Watchlist
       tags:
       - Customer
   /customer/registration:

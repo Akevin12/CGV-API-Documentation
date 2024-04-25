@@ -100,12 +100,13 @@ func GetWatchlist(c *gin.Context) {
 // @Tags Customer
 // @Accept json
 // @Produce json
+// @Param customerId path int true "Customer ID"
 // @Param WatchlistId path int true "Watchlist ID"
 // @Success 200 {object} models.Response
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
 // @Failure 401 {object} models.ErrorResponse "Unauthorized"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
-// @Router /customer/{customerId}/watchlist [delete]
+// @Router /customer/{customerId}/watchlist/{watchlistId} [delete]
 func DeleteWatchlist(c *gin.Context) {
 }
 

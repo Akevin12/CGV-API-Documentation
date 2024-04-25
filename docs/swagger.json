@@ -399,7 +399,9 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/customer/{customerId}/chart/{chartId}": {
             "delete": {
                 "description": "Delete Chart",
                 "consumes": [
@@ -413,6 +415,13 @@
                 ],
                 "summary": "Delete Chart",
                 "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "name": "customerId",
+                        "in": "path",
+                        "required": true
+                    },
                     {
                         "type": "integer",
                         "description": "Chart ID",
@@ -1287,7 +1296,9 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/customer/{customerId}/watchlist/{watchlistId}": {
             "delete": {
                 "description": "Delete Watchlist",
                 "consumes": [
@@ -1301,6 +1312,13 @@
                 ],
                 "summary": "Delete Watchlist",
                 "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "name": "customerId",
+                        "in": "path",
+                        "required": true
+                    },
                     {
                         "type": "integer",
                         "description": "Watchlist ID",

@@ -57,12 +57,13 @@ func UpdateChart(c *gin.Context) {
 // @Tags Customer
 // @Accept json
 // @Produce json
+// @Param customerId path int true "Customer ID"
 // @Param ChartId path int true "Chart ID"
 // @Success 200 {object} models.Response
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
 // @Failure 401 {object} models.ErrorResponse "Unauthorized"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
-// @Router /customer/{customerId}/chart [delete]
+// @Router /customer/{customerId}/chart/{chartId} [delete]
 func DeleteChart(c *gin.Context) {
 }
 
