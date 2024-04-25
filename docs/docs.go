@@ -15,6 +15,58 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/auth/login": {
+            "post": {
+                "description": "Login Account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login Account",
+                "parameters": [
+                    {
+                        "description": "Login details",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.LoginRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.CustomerResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/auth/logout": {
             "delete": {
                 "description": "Logout Account admin and customer",
@@ -44,9 +96,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/customer/auth/login": {
-            "post": {
-                "description": "Login Customer Account",
+        "/branch/search": {
+            "get": {
+                "description": "Search cinema",
                 "consumes": [
                     "application/json"
                 ],
@@ -54,35 +106,26 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Auth"
+                    "Guest"
                 ],
-                "summary": "Login Customer",
+                "summary": "Search cinema",
                 "parameters": [
                     {
-                        "description": "Login details",
-                        "name": "body",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.LoginRequest"
-                        }
+                        "type": "string",
+                        "description": "Cinema name to search",
+                        "name": "name",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.CustomerResponse"
+                            "$ref": "#/definitions/models.BranchDetailResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrorResponse"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
                         "schema": {
                             "$ref": "#/definitions/models.ErrorResponse"
                         }
@@ -149,6 +192,54 @@ const docTemplate = `{
             }
         },
         "/customer/{customerId}/chart": {
+            "get": {
+                "description": "Get Chart",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Get Chart",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "name": "customerId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ChartResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
             "put": {
                 "description": "Update Chart",
                 "consumes": [
@@ -293,6 +384,12 @@ const docTemplate = `{
                     },
                     "400": {
                         "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
                         "schema": {
                             "$ref": "#/definitions/models.ErrorResponse"
                         }
@@ -518,7 +615,7 @@ const docTemplate = `{
         },
         "/customer/{customerId}/tickets": {
             "get": {
-                "description": "Get all payments",
+                "description": "Get ticket",
                 "consumes": [
                     "application/json"
                 ],
@@ -528,7 +625,7 @@ const docTemplate = `{
                 "tags": [
                     "Customer"
                 ],
-                "summary": "Get Payments",
+                "summary": "Get Ticket",
                 "parameters": [
                     {
                         "type": "integer",
@@ -737,9 +834,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/customer/{customerId}/wishlist": {
+        "/customer/{customerId}/watchlist": {
             "get": {
-                "description": "Get Wishlist",
+                "description": "Get Watchlist",
                 "consumes": [
                     "application/json"
                 ],
@@ -749,7 +846,7 @@ const docTemplate = `{
                 "tags": [
                     "Customer"
                 ],
-                "summary": "Get Wishlist",
+                "summary": "Get Watchlist",
                 "parameters": [
                     {
                         "type": "integer",
@@ -787,7 +884,7 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "Add Wishlist",
+                "description": "Add Watchlist",
                 "consumes": [
                     "application/json"
                 ],
@@ -797,7 +894,7 @@ const docTemplate = `{
                 "tags": [
                     "Customer"
                 ],
-                "summary": "Add Wishlist",
+                "summary": "Add Watchlist",
                 "parameters": [
                     {
                         "type": "integer",
@@ -807,7 +904,7 @@ const docTemplate = `{
                         "required": true
                     },
                     {
-                        "description": "Whislist details",
+                        "description": "Watchlist details",
                         "name": "body",
                         "in": "body",
                         "required": true,
@@ -844,7 +941,7 @@ const docTemplate = `{
                 }
             },
             "delete": {
-                "description": "Delete Wishlist",
+                "description": "Delete Watchlist",
                 "consumes": [
                     "application/json"
                 ],
@@ -854,12 +951,12 @@ const docTemplate = `{
                 "tags": [
                     "Customer"
                 ],
-                "summary": "Delete Wishlist",
+                "summary": "Delete Watchlist",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Wishlist ID",
-                        "name": "WishlistId",
+                        "description": "Watchlist ID",
+                        "name": "WatchlistId",
                         "in": "path",
                         "required": true
                     }
@@ -910,12 +1007,6 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Movie title to search",
                         "name": "title",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "Movie genre to search",
-                        "name": "genre",
                         "in": "query"
                     }
                 ],
@@ -1061,6 +1152,43 @@ const docTemplate = `{
                 },
                 "name": {
                     "type": "string"
+                }
+            }
+        },
+        "models.BranchDetail": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "mall access": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "operational": {
+                    "type": "string"
+                },
+                "parkingArea": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.BranchDetailResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.BranchDetail"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
                 }
             }
         },
@@ -1231,6 +1359,9 @@ const docTemplate = `{
                 },
                 "duration": {
                     "type": "integer"
+                },
+                "genre": {
+                    "type": "string"
                 },
                 "id": {
                     "type": "integer"

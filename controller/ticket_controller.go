@@ -5,8 +5,8 @@ import (
 )
 
 // GetPayments godoc
-// @Summary Get Payments
-// @Description Get all payments
+// @Summary Get Ticket
+// @Description Get ticket
 // @Tags Customer
 // @Accept json
 // @Produce json

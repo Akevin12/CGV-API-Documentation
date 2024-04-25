@@ -3,6 +3,7 @@ package models
 type Movie struct {
 	ID          int    `json:"id,omitempty"`
 	Title       string `json:"title"`
+	Genre       string `json:"genre"`
 	Description string `json:"description"`
 	Age         int    `json:"age"`
 	Duration    int    `json:"duration"`

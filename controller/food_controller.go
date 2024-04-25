@@ -5,6 +5,21 @@ import (
 )
 
 // Create Add Chart godoc
+// @Summary Get Chart
+// @Description Get Chart
+// @Tags Customer
+// @Accept json
+// @Produce json
+// @Param customerId path int true "Customer ID"
+// @Success 200 {object} models.ChartResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
+// @Router /customer/{customerId}/chart [get]
+func getChart(c *gin.Context) {
+}
+
+// Create Add Chart godoc
 // @Summary Add To Chart
 // @Description Add To Chart
 // @Tags Customer
@@ -45,6 +60,7 @@ func UpdateChart(c *gin.Context) {
 // @Param ChartId path int true "Chart ID"
 // @Success 200 {object} models.Response
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/chart [delete]
 func DeleteChart(c *gin.Context) {

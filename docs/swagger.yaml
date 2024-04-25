@@ -8,6 +8,30 @@ definitions:
       name:
         type: string
     type: object
+  models.BranchDetail:
+    properties:
+      address:
+        type: string
+      id:
+        type: integer
+      mall access:
+        type: string
+      name:
+        type: string
+      operational:
+        type: string
+      parkingArea:
+        type: string
+    type: object
+  models.BranchDetailResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.BranchDetail'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
   models.Chart:
     properties:
       id:
@@ -117,6 +141,8 @@ definitions:
         type: string
       duration:
         type: integer
+      genre:
+        type: string
       id:
         type: integer
       review:
@@ -290,6 +316,40 @@ definitions:
 info:
   contact: {}
 paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Login Account
+      parameters:
+      - description: Login details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CustomerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Login Account
+      tags:
+      - Auth
   /auth/logout:
     delete:
       description: Logout Account admin and customer
@@ -309,6 +369,34 @@ paths:
       summary: Logout Account
       tags:
       - Auth
+  /branch/search:
+    get:
+      consumes:
+      - application/json
+      description: Search cinema
+      parameters:
+      - description: Cinema name to search
+        in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BranchDetailResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Search cinema
+      tags:
+      - Guest
   /customer/{customerId}/chart:
     delete:
       consumes:
@@ -331,11 +419,47 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Delete Chart
+      tags:
+      - Customer
+    get:
+      consumes:
+      - application/json
+      description: Get Chart
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ChartResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get Chart
       tags:
       - Customer
     post:
@@ -557,7 +681,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: Get all payments
+      description: Get ticket
       parameters:
       - description: Customer ID
         in: path
@@ -583,7 +707,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrorResponse'
-      summary: Get Payments
+      summary: Get Ticket
       tags:
       - Customer
     post:
@@ -700,15 +824,15 @@ paths:
       summary: Confirm Payment
       tags:
       - Customer
-  /customer/{customerId}/wishlist:
+  /customer/{customerId}/watchlist:
     delete:
       consumes:
       - application/json
-      description: Delete Wishlist
+      description: Delete Watchlist
       parameters:
-      - description: Wishlist ID
+      - description: Watchlist ID
         in: path
-        name: WishlistId
+        name: WatchlistId
         required: true
         type: integer
       produces:
@@ -730,13 +854,13 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrorResponse'
-      summary: Delete Wishlist
+      summary: Delete Watchlist
       tags:
       - Customer
     get:
       consumes:
       - application/json
-      description: Get Wishlist
+      description: Get Watchlist
       parameters:
       - description: Customer ID
         in: path
@@ -762,20 +886,20 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrorResponse'
-      summary: Get Wishlist
+      summary: Get Watchlist
       tags:
       - Customer
     post:
       consumes:
       - application/json
-      description: Add Wishlist
+      description: Add Watchlist
       parameters:
       - description: Customer ID
         in: path
         name: customerId
         required: true
         type: integer
-      - description: Whislist details
+      - description: Watchlist details
         in: body
         name: body
         required: true
@@ -800,43 +924,9 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrorResponse'
-      summary: Add Wishlist
+      summary: Add Watchlist
       tags:
       - Customer
-  /customer/auth/login:
-    post:
-      consumes:
-      - application/json
-      description: Login Customer Account
-      parameters:
-      - description: Login details
-        in: body
-        name: body
-        required: true
-        schema:
-          $ref: '#/definitions/models.LoginRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.CustomerResponse'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-      summary: Login Customer
-      tags:
-      - Auth
   /customer/registration:
     post:
       consumes:
@@ -951,10 +1041,6 @@ paths:
       - description: Movie title to search
         in: query
         name: title
-        type: string
-      - description: Movie genre to search
-        in: query
-        name: genre
         type: string
       produces:
       - application/json

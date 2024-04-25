@@ -20,8 +20,8 @@ func AddCustomer(c *gin.Context) {
 }
 
 // LoginCustomer godoc
-// @Summary Login Customer
-// @Description Login Customer Account
+// @Summary Login Account
+// @Description Login Account
 // @Tags Auth
 // @Accept json
 // @Produce json
@@ -30,7 +30,7 @@ func AddCustomer(c *gin.Context) {
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
 // @Failure 401 {object} models.ErrorResponse "Unauthorized"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
-// @Router /customer/auth/login [post]
+// @Router /auth/login [post]
 func LoginCustomer(c *gin.Context) {
 }
 
