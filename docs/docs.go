@@ -2432,7 +2432,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "Rating": {
-                    "type": "number"
+                    "type": "integer"
                 },
                 "content": {
                     "type": "string"
@@ -2452,16 +2452,20 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "content": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "What's Enjoyable : Story\nWhat did you feel : Tension\nComments : Great Movie!"
                 },
                 "date": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "25/04/2024"
                 },
                 "rating": {
-                    "type": "number"
+                    "type": "integer",
+                    "example": 5
                 },
                 "ticket_id": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 1
                 }
             }
         },

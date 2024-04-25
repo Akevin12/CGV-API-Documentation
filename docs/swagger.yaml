@@ -415,7 +415,7 @@ definitions:
   models.Review:
     properties:
       Rating:
-        type: number
+        type: integer
       content:
         type: string
       date:
@@ -428,12 +428,19 @@ definitions:
   models.ReviewForm:
     properties:
       content:
+        example: |-
+          What's Enjoyable : Story
+          What did you feel : Tension
+          Comments : Great Movie!
         type: string
       date:
+        example: 25/04/2024
         type: string
       rating:
-        type: number
+        example: 5
+        type: integer
       ticket_id:
+        example: 1
         type: integer
     type: object
   models.ReviewFormBody:
