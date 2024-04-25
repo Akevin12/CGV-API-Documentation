@@ -727,6 +727,65 @@ const docTemplate = `{
                 }
             }
         },
+        "/customer/{customerId}/movie/review": {
+            "post": {
+                "description": "Add Review",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Add Review",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "name": "customerId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Review details",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ReviewFormBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/customer/{customerId}/orderfood": {
             "post": {
                 "description": "Create Order Food",
@@ -1376,7 +1435,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Customer"
+                    "Guest"
                 ],
                 "summary": "Get All Features",
                 "responses": {
@@ -1417,7 +1476,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Customer"
+                    "Guest"
                 ],
                 "summary": "Get all news",
                 "responses": {
@@ -1458,7 +1517,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Customer"
+                    "Guest"
                 ],
                 "summary": "Get All Promotions",
                 "responses": {
@@ -1466,6 +1525,56 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.PromotionsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/movie/reviews/{movieId}": {
+            "get": {
+                "description": "Get All Reviews",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Guest"
+                ],
+                "summary": "Get All Reviews",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Movie ID",
+                        "name": "movieId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ReviewsResponse"
                         }
                     },
                     "400": {
@@ -2319,6 +2428,51 @@ const docTemplate = `{
                 }
             }
         },
+        "models.Review": {
+            "type": "object",
+            "properties": {
+                "Rating": {
+                    "type": "number"
+                },
+                "content": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "picture_path": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ReviewForm": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "number"
+                },
+                "ticket_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.ReviewFormBody": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.ReviewForm"
+                }
+            }
+        },
         "models.ReviewSummary": {
             "type": "object",
             "properties": {
@@ -2326,6 +2480,23 @@ const docTemplate = `{
                     "type": "number"
                 },
                 "TotalReview": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.ReviewsResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Review"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status": {
                     "type": "integer"
                 }
             }

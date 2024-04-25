@@ -412,11 +412,51 @@ definitions:
       status:
         type: integer
     type: object
+  models.Review:
+    properties:
+      Rating:
+        type: number
+      content:
+        type: string
+      date:
+        type: string
+      picture_path:
+        type: string
+      username:
+        type: string
+    type: object
+  models.ReviewForm:
+    properties:
+      content:
+        type: string
+      date:
+        type: string
+      rating:
+        type: number
+      ticket_id:
+        type: integer
+    type: object
+  models.ReviewFormBody:
+    properties:
+      data:
+        $ref: '#/definitions/models.ReviewForm'
+    type: object
   models.ReviewSummary:
     properties:
       Rating:
         type: number
       TotalReview:
+        type: integer
+    type: object
+  models.ReviewsResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.Review'
+        type: array
+      message:
+        type: string
+      status:
         type: integer
     type: object
   models.Schedule:
@@ -979,6 +1019,45 @@ paths:
       summary: Get Member
       tags:
       - Customer
+  /customer/{customerId}/movie/review:
+    post:
+      consumes:
+      - application/json
+      description: Add Review
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: integer
+      - description: Review details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.ReviewFormBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Add Review
+      tags:
+      - Customer
   /customer/{customerId}/orderfood:
     post:
       consumes:
@@ -1463,7 +1542,7 @@ paths:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Get All Features
       tags:
-      - Customer
+      - Guest
   /information/news:
     get:
       consumes:
@@ -1490,7 +1569,7 @@ paths:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Get all news
       tags:
-      - Customer
+      - Guest
   /information/promotions:
     get:
       consumes:
@@ -1517,7 +1596,40 @@ paths:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Get All Promotions
       tags:
-      - Customer
+      - Guest
+  /movie/reviews/{movieId}:
+    get:
+      consumes:
+      - application/json
+      description: Get All Reviews
+      parameters:
+      - description: Movie ID
+        in: path
+        name: movieId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ReviewsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get All Reviews
+      tags:
+      - Guest
   /movies/{movieId}/schedules/{scheduleId}:
     get:
       consumes:

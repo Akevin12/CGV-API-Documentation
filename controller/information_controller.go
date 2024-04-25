@@ -7,7 +7,7 @@ import (
 // GetAllNews godoc
 // @Summary Get all news
 // @Description Get all news
-// @Tags Customer
+// @Tags Guest
 // @Accept json
 // @Produce json
 // @Success 200 {object} models.NewsArrayResponse
@@ -21,7 +21,7 @@ func GetAllNews(c *gin.Context) {
 // GetAllPromotions godoc
 // @Summary Get All Promotions
 // @Description Get All Promotions
-// @Tags Customer
+// @Tags Guest
 // @Accept json
 // @Produce json
 // @Success 200 {object} models.PromotionsResponse
@@ -35,7 +35,7 @@ func GetAllPromotions(c *gin.Context) {
 // GetAllFeatures godoc
 // @Summary Get All Features
 // @Description Get All Features
-// @Tags Customer
+// @Tags Guest
 // @Accept json
 // @Produce json
 // @Success 200 {object} models.FeaturesResponse
