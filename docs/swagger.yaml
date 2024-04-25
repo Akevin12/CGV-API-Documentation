@@ -1051,7 +1051,7 @@ paths:
           schema:
             $ref: '#/definitions/models.Response'
         "400":
-          description: Bad Request
+          description: 'Error : Couldn''t add review!'
           schema:
             $ref: '#/definitions/models.ErrorResponse'
         "401":
@@ -1536,7 +1536,7 @@ paths:
           schema:
             $ref: '#/definitions/models.FeaturesResponse'
         "400":
-          description: Bad Request
+          description: 'Error : Couldn''t get Features!'
           schema:
             $ref: '#/definitions/models.ErrorResponse'
         "401":
@@ -1563,7 +1563,7 @@ paths:
           schema:
             $ref: '#/definitions/models.NewsArrayResponse'
         "400":
-          description: Bad Request
+          description: 'Error : Couldn''t get all news!'
           schema:
             $ref: '#/definitions/models.ErrorResponse'
         "401":
@@ -1590,7 +1590,7 @@ paths:
           schema:
             $ref: '#/definitions/models.PromotionsResponse'
         "400":
-          description: Bad Request
+          description: 'Error : Couldn''t get promotions!'
           schema:
             $ref: '#/definitions/models.ErrorResponse'
         "401":
@@ -1623,7 +1623,7 @@ paths:
           schema:
             $ref: '#/definitions/models.ReviewsResponse'
         "400":
-          description: Bad Request
+          description: 'Error : Couldn''t get reviews!'
           schema:
             $ref: '#/definitions/models.ErrorResponse'
         "401":

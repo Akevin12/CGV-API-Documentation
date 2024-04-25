@@ -766,7 +766,7 @@ const docTemplate = `{
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Error : Couldn't add review!",
                         "schema": {
                             "$ref": "#/definitions/models.ErrorResponse"
                         }
@@ -1446,7 +1446,7 @@ const docTemplate = `{
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Error : Couldn't get Features!",
                         "schema": {
                             "$ref": "#/definitions/models.ErrorResponse"
                         }
@@ -1487,7 +1487,7 @@ const docTemplate = `{
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Error : Couldn't get all news!",
                         "schema": {
                             "$ref": "#/definitions/models.ErrorResponse"
                         }
@@ -1528,7 +1528,7 @@ const docTemplate = `{
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Error : Couldn't get promotions!",
                         "schema": {
                             "$ref": "#/definitions/models.ErrorResponse"
                         }
@@ -1578,7 +1578,7 @@ const docTemplate = `{
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Error : Couldn't get reviews!",
                         "schema": {
                             "$ref": "#/definitions/models.ErrorResponse"
                         }

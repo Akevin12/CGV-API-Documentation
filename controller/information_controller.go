@@ -11,7 +11,7 @@ import (
 // @Accept json
 // @Produce json
 // @Success 200 {object} models.NewsArrayResponse
-// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 400 {object} models.ErrorResponse "Error : Couldn't get all news!"
 // @Failure 401 {object} models.ErrorResponse "Unauthorized"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /information/news [get]
@@ -25,7 +25,7 @@ func GetAllNews(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Success 200 {object} models.PromotionsResponse
-// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 400 {object} models.ErrorResponse "Error : Couldn't get promotions!"
 // @Failure 401 {object} models.ErrorResponse "Unauthorized"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /information/promotions [get]
@@ -39,7 +39,7 @@ func GetAllPromotions(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Success 200 {object} models.FeaturesResponse
-// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 400 {object} models.ErrorResponse "Error : Couldn't get Features!"
 // @Failure 401 {object} models.ErrorResponse "Unauthorized"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /information/features [get]
