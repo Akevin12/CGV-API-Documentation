@@ -18,6 +18,17 @@ type BranchDetail struct {
 	Price       int        `json: "price"`
 }
 
+type BranchSearch struct {
+	ID       int     `json:"id,omitempty"`
+	Name     string  `json:"name"`
+	Distance float64 `json:"distance"`
+}
+
+type BranchSearchResponse struct {
+	Response
+	BranchSearch BranchSearch `json:"data"`
+}
+
 type BranchesResponse struct {
 	Response
 	Branches []Branch `json:"data"`

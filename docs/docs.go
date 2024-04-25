@@ -121,7 +121,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.BranchDetailResponse"
+                            "$ref": "#/definitions/models.BranchSearchResponse"
                         }
                     },
                     "400": {
@@ -1605,6 +1605,34 @@ const docTemplate = `{
             "properties": {
                 "data": {
                     "$ref": "#/definitions/models.BranchDetail"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.BranchSearch": {
+            "type": "object",
+            "properties": {
+                "distance": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.BranchSearchResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.BranchSearch"
                 },
                 "message": {
                     "type": "string"

@@ -25,7 +25,7 @@ func SearchMovies(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param name query string false "Cinema name to search"
-// @Success 200 {object} models.BranchDetailResponse
+// @Success 200 {object} models.BranchSearchResponse
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /branch/search [get]

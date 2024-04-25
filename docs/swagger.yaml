@@ -34,6 +34,24 @@ definitions:
       status:
         type: integer
     type: object
+  models.BranchSearch:
+    properties:
+      distance:
+        type: number
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  models.BranchSearchResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.BranchSearch'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
   models.Chart:
     properties:
       id:
@@ -519,7 +537,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.BranchDetailResponse'
+            $ref: '#/definitions/models.BranchSearchResponse'
         "400":
           description: Bad Request
           schema:
