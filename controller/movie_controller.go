@@ -77,3 +77,33 @@ func GetWatchlist(c *gin.Context) {
 // @Router /customer/{customerId}/watchlist [delete]
 func DeleteWatchlist(c *gin.Context) {
 }
+
+// GetAllReviews godoc
+// @Summary Get All Reviews
+// @Description Get All Reviews
+// @Tags Customer
+// @Accept json
+// @Produce json
+// @Param movieId path int true "Movie ID"
+// @Success 200 {object} models.ReviewsResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
+// @Router /movie/reviews/{movieId} [get]
+func GetAllReviews(c *gin.Context) {
+}
+
+// AddReview godoc
+// @Summary Add Review
+// @Description Add Review
+// @Tags Customer
+// @Accept json
+// @Produce json
+// @Param body body models.ReviewFormBody true "Review details"
+// @Success 200 {object} models.Response
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
+// @Router /movie/review [post]
+func AddReview(c *gin.Context) {
+}

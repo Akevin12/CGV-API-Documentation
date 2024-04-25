@@ -100,6 +100,30 @@ definitions:
       status:
         type: integer
     type: object
+  models.Feature:
+    properties:
+      category:
+        type: string
+      id:
+        type: integer
+      link:
+        type: string
+      picture_path:
+        type: string
+      title:
+        type: string
+    type: object
+  models.FeaturesResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.Feature'
+        type: array
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
   models.LoginRequest:
     properties:
       password:
@@ -145,8 +169,8 @@ definitions:
         type: string
       id:
         type: integer
-      review:
-        $ref: '#/definitions/models.Review'
+      review_summary:
+        $ref: '#/definitions/models.ReviewSummary'
       title:
         type: string
     type: object
@@ -180,6 +204,30 @@ definitions:
       data:
         items:
           $ref: '#/definitions/models.Movie'
+        type: array
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.News:
+    properties:
+      date:
+        type: string
+      id:
+        type: integer
+      link:
+        type: string
+      picture_path:
+        type: string
+      title:
+        type: string
+    type: object
+  models.NewsArrayResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.News'
         type: array
       message:
         type: string
@@ -225,6 +273,32 @@ definitions:
     - Pending
     - Completed
     - Failed
+  models.Promotion:
+    properties:
+      category:
+        type: string
+      date:
+        type: string
+      id:
+        type: integer
+      link:
+        type: string
+      picture_path:
+        type: string
+      title:
+        type: string
+    type: object
+  models.PromotionsResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.Promotion'
+        type: array
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
   models.Response:
     properties:
       message:
@@ -236,7 +310,47 @@ definitions:
     properties:
       Rating:
         type: number
+      content:
+        type: string
+      date:
+        type: string
+      picture_path:
+        type: string
+      username:
+        type: string
+    type: object
+  models.ReviewForm:
+    properties:
+      content:
+        type: string
+      date:
+        type: string
+      rating:
+        type: number
+      ticket_id:
+        type: integer
+    type: object
+  models.ReviewFormBody:
+    properties:
+      data:
+        $ref: '#/definitions/models.ReviewForm'
+    type: object
+  models.ReviewSummary:
+    properties:
+      Rating:
+        type: number
       TotalReview:
+        type: integer
+    type: object
+  models.ReviewsResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.Review'
+        type: array
+      message:
+        type: string
+      status:
         type: integer
     type: object
   models.Schedule:
@@ -959,6 +1073,154 @@ paths:
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Create New Customer
+      tags:
+      - Customer
+  /information/features:
+    get:
+      consumes:
+      - application/json
+      description: Get All Features
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.FeaturesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get All Features
+      tags:
+      - Customer
+  /information/news:
+    get:
+      consumes:
+      - application/json
+      description: Get all news
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.NewsArrayResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get all news
+      tags:
+      - Customer
+  /information/promotions:
+    get:
+      consumes:
+      - application/json
+      description: Get All Promotions
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.PromotionsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get All Promotions
+      tags:
+      - Customer
+  /movie/review:
+    post:
+      consumes:
+      - application/json
+      description: Add Review
+      parameters:
+      - description: Review details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.ReviewFormBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Add Review
+      tags:
+      - Customer
+  /movie/reviews/{movieId}:
+    get:
+      consumes:
+      - application/json
+      description: Get All Reviews
+      parameters:
+      - description: Movie ID
+        in: path
+        name: movieId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ReviewsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get All Reviews
       tags:
       - Customer
   /movies/{movieId}/schedules/{scheduleId}:
