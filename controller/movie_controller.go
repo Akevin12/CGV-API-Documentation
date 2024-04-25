@@ -108,3 +108,31 @@ func GetWatchlist(c *gin.Context) {
 // @Router /customer/{customerId}/watchlist [delete]
 func DeleteWatchlist(c *gin.Context) {
 }
+
+// Now Showing Movies godoc
+// @Summary Get Now Showing Movies
+// @Description Get Now Showing Movies
+// @Tags Guest
+// @Accept json
+// @Produce json
+// @Param body body models.NowShowingMovies true "Now Showing Movies"
+// @Success 200 {object} models.NowShowingMoviesResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
+// @Router /movies/nowshowing [get]
+func NowShowing(c *gin.Context) {
+}
+
+// Upcoming Movies godoc
+// @Summary Get Upcoming Movies
+// @Description Get Upcoming Movies
+// @Tags Guest
+// @Accept json
+// @Produce json
+// @Param body body models.UpComingMovies true "Upcoming Movies"
+// @Success 200 {object} models.UpComingMoviesResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
+// @Router /movies/upcoming [get]
+func Upcoming(c *gin.Context) {
+}
