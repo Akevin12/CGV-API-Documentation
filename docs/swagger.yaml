@@ -22,6 +22,8 @@ definitions:
         type: string
       parkingArea:
         type: string
+      price:
+        type: integer
     type: object
   models.BranchDetailResponse:
     properties:
@@ -47,6 +49,26 @@ definitions:
     properties:
       data:
         $ref: '#/definitions/models.Chart'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.Coupon:
+    properties:
+      discount:
+        type: number
+      expire:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  models.CouponResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.Coupon'
       message:
         type: string
       status:
@@ -225,6 +247,24 @@ definitions:
     - Pending
     - Completed
     - Failed
+  models.Points:
+    properties:
+      date:
+        type: string
+      expire:
+        type: string
+      total:
+        type: integer
+    type: object
+  models.PointsResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.Points'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
   models.Response:
     properties:
       message:
@@ -538,6 +578,106 @@ paths:
       summary: Update Chart
       tags:
       - Customer
+  /customer/{customerId}/coupon:
+    get:
+      consumes:
+      - application/json
+      description: get All Coupon
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CouponResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get All Coupon
+      tags:
+      - Customer
+  /customer/{customerId}/favorite:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Favorite
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Delete Favorite
+      tags:
+      - Customer
+    post:
+      consumes:
+      - application/json
+      description: Add To Favorite
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: integer
+      - description: Branch details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.BranchDetail'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BranchDetailResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Add To Favorite
+      tags:
+      - Customer
   /customer/{customerId}/member:
     get:
       consumes:
@@ -608,6 +748,35 @@ paths:
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Update Password
+      tags:
+      - Customer
+  /customer/{customerId}/points:
+    get:
+      consumes:
+      - application/json
+      description: Get Points History
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.PointsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get Points History
       tags:
       - Customer
   /customer/{customerId}/profile:

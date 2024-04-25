@@ -15,6 +15,7 @@ type BranchDetail struct {
 	MallAccess  string     `json:"mall access"`
 	ParkingArea string     `json:"parking area`
 	Operational *time.Time `json: "operational hours"`
+	Price       int        `json: "price"`
 }
 
 type BranchesResponse struct {

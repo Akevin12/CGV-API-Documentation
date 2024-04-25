@@ -32,6 +32,37 @@ func SearchMovies(c *gin.Context) {
 func SearchCinema(c *gin.Context) {
 }
 
+// Add To Favorite godoc
+// @Summary Add To Favorite
+// @Description Add To Favorite
+// @Tags Customer
+// @Accept json
+// @Produce json
+// @Param customerId path int true "Customer ID"
+// @Param body body models.BranchDetail true "Branch details"
+// @Success 200 {object} models.BranchDetailResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
+// @Router /customer/{customerId}/favorite [post]
+func AddToFavorite(c *gin.Context) {
+}
+
+// Delete Favorite godoc
+// @Summary Delete Favorite
+// @Description Delete Favorite
+// @Tags Customer
+// @Accept json
+// @Produce json
+// @Param customerId path int true "Customer ID"
+// @Success 200 {object} models.Response
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
+// @Router /customer/{customerId}/favorite [delete]
+func DeleteFavorite(c *gin.Context) {
+}
+
 // AddWishlist godoc
 // @Summary Add Watchlist
 // @Description Add Watchlist
