@@ -1,6 +1,9 @@
 package controller
 
 import (
+	m "CGV/models"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -123,6 +126,22 @@ func DeleteWatchlist(c *gin.Context) {
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /movie/reviews/{movieId} [get]
 func GetAllReviews(c *gin.Context) {
+	// Placeholder implementation for fetching reviews for the given movieId
+	placeholderReviews := []m.Review{
+		{Username: "User1", PicturePath: "/images/user1.jpg", Rating: 5, Content: "Great movie!", Date: "2024-04-25"},
+		{Username: "User2", PicturePath: "/images/user2.jpg", Rating: 4, Content: "Enjoyed it!", Date: "2024-04-24"},
+	}
+
+	// Wrap the reviews array in a Reviews struct
+	reviews := m.Reviews{Reviews: placeholderReviews}
+
+	// Wrap the Reviews struct in a ReviewsResponse along with a generic response
+	response := m.ReviewsResponse{
+		Response: m.Response{Status: http.StatusOK, Message: "Success"},
+		Reviews:  reviews,
+	}
+
+	c.JSON(http.StatusOK, response)
 }
 
 // AddReview godoc
