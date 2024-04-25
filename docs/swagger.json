@@ -1021,56 +1021,6 @@
                 }
             }
         },
-        "/movies/{movieId}/schedules": {
-            "get": {
-                "description": "Get a schedule by movie_id and schedule_id.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Customer"
-                ],
-                "summary": "Get Schedule",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "movie id",
-                        "name": "movieId",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.MovieSchedulesResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrorResponse"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
         "/movies/{movieId}/schedules/{scheduleId}": {
             "get": {
                 "description": "Get all schedules for a movie by ID",

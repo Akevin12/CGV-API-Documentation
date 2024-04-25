@@ -961,39 +961,6 @@ paths:
       summary: Create New Customer
       tags:
       - Customer
-  /movies/{movieId}/schedules:
-    get:
-      consumes:
-      - application/json
-      description: Get a schedule by movie_id and schedule_id.
-      parameters:
-      - description: movie id
-        in: path
-        name: movieId
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.MovieSchedulesResponse'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-      summary: Get Schedule
-      tags:
-      - Customer
   /movies/{movieId}/schedules/{scheduleId}:
     get:
       consumes:
