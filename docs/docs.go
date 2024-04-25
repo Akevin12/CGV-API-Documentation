@@ -121,7 +121,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.BranchDetailResponse"
+                            "$ref": "#/definitions/models.BranchSearchResponse"
                         }
                     },
                     "400": {
@@ -168,6 +168,63 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.CustomerResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/customer/{customerId}/cancelorderfood": {
+            "delete": {
+                "description": "Cancel Order Food",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Cancel Order Food",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "name": "customerID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Order ID",
+                        "name": "orderID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "400": {
@@ -353,7 +410,9 @@ const docTemplate = `{
                         }
                     }
                 }
-            },
+            }
+        },
+        "/customer/{customerId}/chart/{chartId}": {
             "delete": {
                 "description": "Delete Chart",
                 "consumes": [
@@ -369,6 +428,13 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
+                        "description": "Customer ID",
+                        "name": "customerId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
                         "description": "Chart ID",
                         "name": "ChartId",
                         "in": "path",
@@ -380,6 +446,214 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/customer/{customerId}/coupon": {
+            "get": {
+                "description": "get All Coupon",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Get All Coupon",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "name": "customerId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.CouponResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/customer/{customerId}/favorite": {
+            "post": {
+                "description": "Add To Favorite",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Add To Favorite",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "name": "customerId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Branch details",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.BranchDetail"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.BranchDetailResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete Favorite",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Delete Favorite",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "name": "customerId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/customer/{customerId}/foodvoucher": {
+            "get": {
+                "description": "Get Food Voucher",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Get Food Voucher",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Name",
+                        "name": "voucherName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "name": "customerID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.VoucherResponse"
                         }
                     },
                     "400": {
@@ -453,6 +727,56 @@ const docTemplate = `{
                 }
             }
         },
+        "/customer/{customerId}/orderfood": {
+            "post": {
+                "description": "Create Order Food",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Create Order Food",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "name": "customerId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.OrderFoodResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/customer/{customerId}/password": {
             "put": {
                 "description": "Put Password",
@@ -499,6 +823,50 @@ const docTemplate = `{
                     },
                     "401": {
                         "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/customer/{customerId}/points": {
+            "get": {
+                "description": "Get Points History",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Get Points History",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "name": "customerId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.PointsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/models.ErrorResponse"
                         }
@@ -939,7 +1307,9 @@ const docTemplate = `{
                         }
                     }
                 }
-            },
+            }
+        },
+        "/customer/{customerId}/watchlist/{watchlistId}": {
             "delete": {
                 "description": "Delete Watchlist",
                 "consumes": [
@@ -953,6 +1323,13 @@ const docTemplate = `{
                 ],
                 "summary": "Delete Watchlist",
                 "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "name": "customerId",
+                        "in": "path",
+                        "required": true
+                    },
                     {
                         "type": "integer",
                         "description": "Watchlist ID",
@@ -1112,9 +1489,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/movie/review": {
-            "post": {
-                "description": "Add Review",
+        "/movies/nowshowing": {
+            "get": {
+                "description": "Get Now Showing Movies",
                 "consumes": [
                     "application/json"
                 ],
@@ -1122,17 +1499,17 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Customer"
+                    "Guest"
                 ],
-                "summary": "Add Review",
+                "summary": "Get Now Showing Movies",
                 "parameters": [
                     {
-                        "description": "Review details",
+                        "description": "Now Showing Movies",
                         "name": "body",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.ReviewFormBody"
+                            "$ref": "#/definitions/models.NowShowingMovies"
                         }
                     }
                 ],
@@ -1140,67 +1517,11 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/models.NowShowingMoviesResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrorResponse"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/movie/reviews/{movieId}": {
-            "get": {
-                "description": "Get All Reviews",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Customer"
-                ],
-                "summary": "Get All Reviews",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Movie ID",
-                        "name": "movieId",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.ReviewsResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrorResponse"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
                         "schema": {
                             "$ref": "#/definitions/models.ErrorResponse"
                         }
@@ -1240,6 +1561,52 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.MoviesResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/movies/upcoming": {
+            "get": {
+                "description": "Get Upcoming Movies",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Guest"
+                ],
+                "summary": "Get Upcoming Movies",
+                "parameters": [
+                    {
+                        "description": "Upcoming Movies",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpComingMovies"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UpComingMoviesResponse"
                         }
                     },
                     "400": {
@@ -1350,6 +1717,9 @@ const docTemplate = `{
                 },
                 "parkingArea": {
                     "type": "string"
+                },
+                "price": {
+                    "type": "integer"
                 }
             }
         },
@@ -1358,6 +1728,34 @@ const docTemplate = `{
             "properties": {
                 "data": {
                     "$ref": "#/definitions/models.BranchDetail"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.BranchSearch": {
+            "type": "object",
+            "properties": {
+                "distance": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.BranchSearchResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.BranchSearch"
                 },
                 "message": {
                     "type": "string"
@@ -1389,6 +1787,37 @@ const docTemplate = `{
             "properties": {
                 "data": {
                     "$ref": "#/definitions/models.Chart"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.Coupon": {
+            "type": "object",
+            "properties": {
+                "discount": {
+                    "type": "number"
+                },
+                "expire": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CouponResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.Coupon"
                 },
                 "message": {
                     "type": "string"
@@ -1679,6 +2108,80 @@ const docTemplate = `{
                 }
             }
         },
+        "models.NowShowingMovies": {
+            "type": "object",
+            "properties": {
+                "age": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.NowShowingMoviesResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.NowShowingMovies"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.OrderFood": {
+            "type": "object",
+            "properties": {
+                "customer": {
+                    "$ref": "#/definitions/models.Customer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "menu": {
+                    "type": "string"
+                },
+                "paymentmethod": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "voucher": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.OrderFoodResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.OrderFood"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
         "models.PassResponse": {
             "type": "object",
             "properties": {
@@ -1737,6 +2240,34 @@ const docTemplate = `{
                 "Failed"
             ]
         },
+        "models.Points": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "string"
+                },
+                "expire": {
+                    "type": "string"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.PointsResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.Points"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
         "models.Promotion": {
             "type": "object",
             "properties": {
@@ -1788,51 +2319,6 @@ const docTemplate = `{
                 }
             }
         },
-        "models.Review": {
-            "type": "object",
-            "properties": {
-                "Rating": {
-                    "type": "number"
-                },
-                "content": {
-                    "type": "string"
-                },
-                "date": {
-                    "type": "string"
-                },
-                "picture_path": {
-                    "type": "string"
-                },
-                "username": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.ReviewForm": {
-            "type": "object",
-            "properties": {
-                "content": {
-                    "type": "string"
-                },
-                "date": {
-                    "type": "string"
-                },
-                "rating": {
-                    "type": "number"
-                },
-                "ticket_id": {
-                    "type": "integer"
-                }
-            }
-        },
-        "models.ReviewFormBody": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "$ref": "#/definitions/models.ReviewForm"
-                }
-            }
-        },
         "models.ReviewSummary": {
             "type": "object",
             "properties": {
@@ -1840,23 +2326,6 @@ const docTemplate = `{
                     "type": "number"
                 },
                 "TotalReview": {
-                    "type": "integer"
-                }
-            }
-        },
-        "models.ReviewsResponse": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.Review"
-                    }
-                },
-                "message": {
-                    "type": "string"
-                },
-                "status": {
                     "type": "integer"
                 }
             }
@@ -1965,6 +2434,77 @@ const docTemplate = `{
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/models.Ticket"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.UpComingMovies": {
+            "type": "object",
+            "properties": {
+                "age": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "likes": {
+                    "type": "integer"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UpComingMoviesResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.UpComingMovies"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.Voucher": {
+            "type": "object",
+            "properties": {
+                "customer": {
+                    "$ref": "#/definitions/models.Customer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "expiredDate": {
+                    "type": "string"
+                },
+                "vouchername": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.VoucherResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Voucher"
                     }
                 },
                 "message": {

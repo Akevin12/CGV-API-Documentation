@@ -22,11 +22,31 @@ definitions:
         type: string
       parkingArea:
         type: string
+      price:
+        type: integer
     type: object
   models.BranchDetailResponse:
     properties:
       data:
         $ref: '#/definitions/models.BranchDetail'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.BranchSearch:
+    properties:
+      distance:
+        type: number
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  models.BranchSearchResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.BranchSearch'
       message:
         type: string
       status:
@@ -47,6 +67,26 @@ definitions:
     properties:
       data:
         $ref: '#/definitions/models.Chart'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.Coupon:
+    properties:
+      discount:
+        type: number
+      expire:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  models.CouponResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.Coupon'
       message:
         type: string
       status:
@@ -234,6 +274,54 @@ definitions:
       status:
         type: integer
     type: object
+  models.NowShowingMovies:
+    properties:
+      age:
+        type: integer
+      id:
+        type: integer
+      location:
+        type: string
+      title:
+        type: string
+    type: object
+  models.NowShowingMoviesResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.NowShowingMovies'
+        type: array
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.OrderFood:
+    properties:
+      customer:
+        $ref: '#/definitions/models.Customer'
+      id:
+        type: integer
+      menu:
+        type: string
+      paymentmethod:
+        type: string
+      price:
+        type: string
+      quantity:
+        type: integer
+      voucher:
+        type: string
+    type: object
+  models.OrderFoodResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.OrderFood'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
   models.PassResponse:
     properties:
       data:
@@ -273,6 +361,24 @@ definitions:
     - Pending
     - Completed
     - Failed
+  models.Points:
+    properties:
+      date:
+        type: string
+      expire:
+        type: string
+      total:
+        type: integer
+    type: object
+  models.PointsResponse:
+    properties:
+      data:
+        $ref: '#/definitions/models.Points'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
   models.Promotion:
     properties:
       category:
@@ -306,51 +412,11 @@ definitions:
       status:
         type: integer
     type: object
-  models.Review:
-    properties:
-      Rating:
-        type: number
-      content:
-        type: string
-      date:
-        type: string
-      picture_path:
-        type: string
-      username:
-        type: string
-    type: object
-  models.ReviewForm:
-    properties:
-      content:
-        type: string
-      date:
-        type: string
-      rating:
-        type: number
-      ticket_id:
-        type: integer
-    type: object
-  models.ReviewFormBody:
-    properties:
-      data:
-        $ref: '#/definitions/models.ReviewForm'
-    type: object
   models.ReviewSummary:
     properties:
       Rating:
         type: number
       TotalReview:
-        type: integer
-    type: object
-  models.ReviewsResponse:
-    properties:
-      data:
-        items:
-          $ref: '#/definitions/models.Review'
-        type: array
-      message:
-        type: string
-      status:
         type: integer
     type: object
   models.Schedule:
@@ -421,6 +487,52 @@ definitions:
       data:
         items:
           $ref: '#/definitions/models.Ticket'
+        type: array
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.UpComingMovies:
+    properties:
+      age:
+        type: integer
+      id:
+        type: integer
+      likes:
+        type: integer
+      location:
+        type: string
+      title:
+        type: string
+    type: object
+  models.UpComingMoviesResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.UpComingMovies'
+        type: array
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.Voucher:
+    properties:
+      customer:
+        $ref: '#/definitions/models.Customer'
+      description:
+        type: string
+      expiredDate:
+        type: string
+      vouchername:
+        type: string
+    type: object
+  models.VoucherResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/models.Voucher'
         type: array
       message:
         type: string
@@ -499,7 +611,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.BranchDetailResponse'
+            $ref: '#/definitions/models.BranchSearchResponse'
         "400":
           description: Bad Request
           schema:
@@ -511,15 +623,20 @@ paths:
       summary: Search cinema
       tags:
       - Guest
-  /customer/{customerId}/chart:
+  /customer/{customerId}/cancelorderfood:
     delete:
       consumes:
       - application/json
-      description: Delete Chart
+      description: Cancel Order Food
       parameters:
-      - description: Chart ID
+      - description: Customer ID
         in: path
-        name: ChartId
+        name: customerID
+        required: true
+        type: integer
+      - description: Order ID
+        in: path
+        name: orderID
         required: true
         type: integer
       produces:
@@ -541,9 +658,10 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrorResponse'
-      summary: Delete Chart
+      summary: Cancel Order Food
       tags:
       - Customer
+  /customer/{customerId}/chart:
     get:
       consumes:
       - application/json
@@ -652,6 +770,182 @@ paths:
       summary: Update Chart
       tags:
       - Customer
+  /customer/{customerId}/chart/{chartId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Chart
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: integer
+      - description: Chart ID
+        in: path
+        name: ChartId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Delete Chart
+      tags:
+      - Customer
+  /customer/{customerId}/coupon:
+    get:
+      consumes:
+      - application/json
+      description: get All Coupon
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CouponResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get All Coupon
+      tags:
+      - Customer
+  /customer/{customerId}/favorite:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Favorite
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Delete Favorite
+      tags:
+      - Customer
+    post:
+      consumes:
+      - application/json
+      description: Add To Favorite
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: integer
+      - description: Branch details
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.BranchDetail'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BranchDetailResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Add To Favorite
+      tags:
+      - Customer
+  /customer/{customerId}/foodvoucher:
+    get:
+      consumes:
+      - application/json
+      description: Get Food Voucher
+      parameters:
+      - description: Name
+        in: path
+        name: voucherName
+        required: true
+        type: string
+      - description: Customer ID
+        in: path
+        name: customerID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.VoucherResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get Food Voucher
+      tags:
+      - Customer
   /customer/{customerId}/member:
     get:
       consumes:
@@ -683,6 +977,39 @@ paths:
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Get Member
+      tags:
+      - Customer
+  /customer/{customerId}/orderfood:
+    post:
+      consumes:
+      - application/json
+      description: Create Order Food
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.OrderFoodResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Create Order Food
       tags:
       - Customer
   /customer/{customerId}/password:
@@ -722,6 +1049,35 @@ paths:
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Update Password
+      tags:
+      - Customer
+  /customer/{customerId}/points:
+    get:
+      consumes:
+      - application/json
+      description: Get Points History
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.PointsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get Points History
       tags:
       - Customer
   /customer/{customerId}/profile:
@@ -939,38 +1295,6 @@ paths:
       tags:
       - Customer
   /customer/{customerId}/watchlist:
-    delete:
-      consumes:
-      - application/json
-      description: Delete Watchlist
-      parameters:
-      - description: Watchlist ID
-        in: path
-        name: WatchlistId
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Response'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-      summary: Delete Watchlist
-      tags:
-      - Customer
     get:
       consumes:
       - application/json
@@ -1039,6 +1363,44 @@ paths:
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Add Watchlist
+      tags:
+      - Customer
+  /customer/{customerId}/watchlist/{watchlistId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Watchlist
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customerId
+        required: true
+        type: integer
+      - description: Watchlist ID
+        in: path
+        name: WatchlistId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Delete Watchlist
       tags:
       - Customer
   /customer/registration:
@@ -1156,73 +1518,6 @@ paths:
       summary: Get All Promotions
       tags:
       - Customer
-  /movie/review:
-    post:
-      consumes:
-      - application/json
-      description: Add Review
-      parameters:
-      - description: Review details
-        in: body
-        name: body
-        required: true
-        schema:
-          $ref: '#/definitions/models.ReviewFormBody'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Response'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-      summary: Add Review
-      tags:
-      - Customer
-  /movie/reviews/{movieId}:
-    get:
-      consumes:
-      - application/json
-      description: Get All Reviews
-      parameters:
-      - description: Movie ID
-        in: path
-        name: movieId
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.ReviewsResponse'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-      summary: Get All Reviews
-      tags:
-      - Customer
   /movies/{movieId}/schedules/{scheduleId}:
     get:
       consumes:
@@ -1261,6 +1556,36 @@ paths:
       summary: Get all schedules for a movie by ID
       tags:
       - Customer
+  /movies/nowshowing:
+    get:
+      consumes:
+      - application/json
+      description: Get Now Showing Movies
+      parameters:
+      - description: Now Showing Movies
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.NowShowingMovies'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.NowShowingMoviesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get Now Showing Movies
+      tags:
+      - Guest
   /movies/search:
     get:
       consumes:
@@ -1287,6 +1612,36 @@ paths:
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Search movies by title
+      tags:
+      - Guest
+  /movies/upcoming:
+    get:
+      consumes:
+      - application/json
+      description: Get Upcoming Movies
+      parameters:
+      - description: Upcoming Movies
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpComingMovies'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UpComingMoviesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get Upcoming Movies
       tags:
       - Guest
 swagger: "2.0"

@@ -25,11 +25,42 @@ func SearchMovies(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param name query string false "Cinema name to search"
-// @Success 200 {object} models.BranchDetailResponse
+// @Success 200 {object} models.BranchSearchResponse
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /branch/search [get]
 func SearchCinema(c *gin.Context) {
+}
+
+// Add To Favorite godoc
+// @Summary Add To Favorite
+// @Description Add To Favorite
+// @Tags Customer
+// @Accept json
+// @Produce json
+// @Param customerId path int true "Customer ID"
+// @Param body body models.BranchDetail true "Branch details"
+// @Success 200 {object} models.BranchDetailResponse
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
+// @Router /customer/{customerId}/favorite [post]
+func AddToFavorite(c *gin.Context) {
+}
+
+// Delete Favorite godoc
+// @Summary Delete Favorite
+// @Description Delete Favorite
+// @Tags Customer
+// @Accept json
+// @Produce json
+// @Param customerId path int true "Customer ID"
+// @Success 200 {object} models.Response
+// @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 500 {object} models.ErrorResponse "Internal Server Error"
+// @Router /customer/{customerId}/favorite [delete]
+func DeleteFavorite(c *gin.Context) {
 }
 
 // AddWishlist godoc
@@ -69,41 +100,40 @@ func GetWatchlist(c *gin.Context) {
 // @Tags Customer
 // @Accept json
 // @Produce json
+// @Param customerId path int true "Customer ID"
 // @Param WatchlistId path int true "Watchlist ID"
 // @Success 200 {object} models.Response
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
 // @Failure 401 {object} models.ErrorResponse "Unauthorized"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
-// @Router /customer/{customerId}/watchlist [delete]
+// @Router /customer/{customerId}/watchlist/{watchlistId} [delete]
 func DeleteWatchlist(c *gin.Context) {
 }
 
-// GetAllReviews godoc
-// @Summary Get All Reviews
-// @Description Get All Reviews
-// @Tags Customer
+// Now Showing Movies godoc
+// @Summary Get Now Showing Movies
+// @Description Get Now Showing Movies
+// @Tags Guest
 // @Accept json
 // @Produce json
-// @Param movieId path int true "Movie ID"
-// @Success 200 {object} models.ReviewsResponse
+// @Param body body models.NowShowingMovies true "Now Showing Movies"
+// @Success 200 {object} models.NowShowingMoviesResponse
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
-// @Failure 401 {object} models.ErrorResponse "Unauthorized"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
-// @Router /movie/reviews/{movieId} [get]
-func GetAllReviews(c *gin.Context) {
+// @Router /movies/nowshowing [get]
+func NowShowing(c *gin.Context) {
 }
 
-// AddReview godoc
-// @Summary Add Review
-// @Description Add Review
-// @Tags Customer
+// Upcoming Movies godoc
+// @Summary Get Upcoming Movies
+// @Description Get Upcoming Movies
+// @Tags Guest
 // @Accept json
 // @Produce json
-// @Param body body models.ReviewFormBody true "Review details"
-// @Success 200 {object} models.Response
+// @Param body body models.UpComingMovies true "Upcoming Movies"
+// @Success 200 {object} models.UpComingMoviesResponse
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
-// @Failure 401 {object} models.ErrorResponse "Unauthorized"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
-// @Router /movie/review [post]
-func AddReview(c *gin.Context) {
+// @Router /movies/upcoming [get]
+func Upcoming(c *gin.Context) {
 }
