@@ -2629,14 +2629,14 @@ const docTemplate = `{
         "models.Voucher": {
             "type": "object",
             "properties": {
-                "customer": {
-                    "$ref": "#/definitions/models.Customer"
-                },
                 "description": {
                     "type": "string"
                 },
                 "expiredDate": {
                     "type": "string"
+                },
+                "idvoucher": {
+                    "type": "integer"
                 },
                 "vouchername": {
                     "type": "string"

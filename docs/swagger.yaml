@@ -592,12 +592,12 @@ definitions:
     type: object
   models.Voucher:
     properties:
-      customer:
-        $ref: '#/definitions/models.Customer'
       description:
         type: string
       expiredDate:
         type: string
+      idvoucher:
+        type: integer
       vouchername:
         type: string
     type: object
