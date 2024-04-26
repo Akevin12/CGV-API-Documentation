@@ -6,12 +6,18 @@ type Payment struct {
 	Status PaymentStatus `json:"status"`
 }
 
+type PaymentC struct {
+	ID     int            `json:"id"`
+	Amount float64        `json:"amount"`
+	Status PaymentStatusC `json:"status"`
+}
+
 type PaymentStatus string
+type PaymentStatusC string
 
 const (
-	Pending   PaymentStatus = "pending"
-	Completed PaymentStatus = "completed"
-	Failed    PaymentStatus = "failed"
+	Pending  PaymentStatus  = "pending"
+	Complete PaymentStatusC = "completed"
 )
 
 type PaymentResponse struct {

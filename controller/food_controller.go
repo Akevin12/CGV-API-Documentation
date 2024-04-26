@@ -14,6 +14,7 @@ import (
 // @Success 200 {object} models.ChartResponse
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
 // @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 404 {object} models.ErrorResponse "Chart Not Found"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/chart [get]
 func getChart(c *gin.Context) {
@@ -30,6 +31,7 @@ func getChart(c *gin.Context) {
 // @Success 200 {object} models.ChartResponse
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
 // @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 403 {object} models.ErrorResponse "Forbidden"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/chart [post]
 func AddToChart(c *gin.Context) {
@@ -46,6 +48,7 @@ func AddToChart(c *gin.Context) {
 // @Success 200 {object} models.ChartResponse
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
 // @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 403 {object} models.ErrorResponse "Forbidden"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/chart [put]
 func UpdateChart(c *gin.Context) {
@@ -62,6 +65,7 @@ func UpdateChart(c *gin.Context) {
 // @Success 200 {object} models.Response
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
 // @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 404 {object} models.ErrorResponse "Chart Not Found"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/chart/{chartId} [delete]
 func DeleteChart(c *gin.Context) {

@@ -98,6 +98,10 @@ definitions:
         type: string
       birthday:
         type: string
+      cinema:
+        $ref: '#/definitions/models.Branch'
+      city:
+        type: string
       email:
         type: string
       gender:
@@ -105,8 +109,6 @@ definitions:
       id:
         type: integer
       name:
-        type: string
-      password:
         type: string
       phone:
         type: string
@@ -218,15 +220,6 @@ definitions:
     properties:
       data:
         $ref: '#/definitions/models.Schedule'
-    type: object
-  models.MovieScheduleResponse:
-    properties:
-      data:
-        $ref: '#/definitions/models.Schedule'
-      message:
-        type: string
-      status:
-        type: integer
     type: object
   models.MovieSchedulesResponse:
     properties:
@@ -351,16 +344,27 @@ definitions:
       status:
         $ref: '#/definitions/models.PaymentStatus'
     type: object
+  models.PaymentC:
+    properties:
+      amount:
+        type: number
+      id:
+        type: integer
+      status:
+        $ref: '#/definitions/models.PaymentStatusC'
+    type: object
   models.PaymentStatus:
     enum:
     - pending
-    - completed
-    - failed
     type: string
     x-enum-varnames:
     - Pending
-    - Completed
-    - Failed
+  models.PaymentStatusC:
+    enum:
+    - completed
+    type: string
+    x-enum-varnames:
+    - Complete
   models.Points:
     properties:
       date:
@@ -520,10 +524,30 @@ definitions:
       seat:
         $ref: '#/definitions/models.Seat'
     type: object
+  models.TicketC:
+    properties:
+      id:
+        type: integer
+      payment:
+        $ref: '#/definitions/models.PaymentC'
+      schedule:
+        $ref: '#/definitions/models.ScheduleTicket'
+      seat:
+        $ref: '#/definitions/models.Seat'
+    type: object
   models.TicketResponse:
     properties:
       data:
         $ref: '#/definitions/models.Ticket'
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.TicketResponseC:
+    properties:
+      data:
+        $ref: '#/definitions/models.TicketC'
       message:
         type: string
       status:
@@ -734,6 +758,10 @@ paths:
           description: Unauthorized
           schema:
             $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Chart Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
@@ -770,6 +798,10 @@ paths:
             $ref: '#/definitions/models.ErrorResponse'
         "401":
           description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "403":
+          description: Forbidden
           schema:
             $ref: '#/definitions/models.ErrorResponse'
         "500":
@@ -810,6 +842,10 @@ paths:
           description: Unauthorized
           schema:
             $ref: '#/definitions/models.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
@@ -846,6 +882,10 @@ paths:
             $ref: '#/definitions/models.ErrorResponse'
         "401":
           description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Chart Not Found
           schema:
             $ref: '#/definitions/models.ErrorResponse'
         "500":
@@ -1019,6 +1059,10 @@ paths:
           description: Unauthorized
           schema:
             $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Member Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
@@ -1130,6 +1174,10 @@ paths:
           description: Unauthorized
           schema:
             $ref: '#/definitions/models.ErrorResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
@@ -1186,6 +1234,10 @@ paths:
             $ref: '#/definitions/models.CustomerResponse'
         "400":
           description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Customer Not Found
           schema:
             $ref: '#/definitions/models.ErrorResponse'
         "500":
@@ -1304,44 +1356,6 @@ paths:
       summary: Create Ticket
       tags:
       - Customer
-  /customer/{customerId}/tickets/{ticketId}:
-    get:
-      consumes:
-      - application/json
-      description: Get payment
-      parameters:
-      - description: Customer ID
-        in: path
-        name: customerId
-        required: true
-        type: integer
-      - description: Customer ID
-        in: path
-        name: ticketId
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.TicketResponse'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-      summary: Get Payment
-      tags:
-      - Customer
   /customer/{customerId}/tickets/{ticketId}/payment:
     post:
       consumes:
@@ -1364,7 +1378,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.TicketResponse'
+            $ref: '#/definitions/models.TicketResponseC'
         "400":
           description: Bad Request
           schema:
@@ -1637,44 +1651,6 @@ paths:
       summary: Get All Reviews
       tags:
       - Guest
-  /movies/{movieId}/schedules/{scheduleId}:
-    get:
-      consumes:
-      - application/json
-      description: Get all schedules for a movie by ID
-      parameters:
-      - description: Movie ID
-        in: path
-        name: movieId
-        required: true
-        type: string
-      - description: Schedule ID
-        in: path
-        name: scheduleId
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.MovieScheduleResponse'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-      summary: Get all schedules for a movie by ID
-      tags:
-      - Customer
   /movies/nowshowing:
     get:
       consumes:

@@ -54,6 +54,7 @@ func LogoutAccount(c *gin.Context) {
 // @Param customerId path int true "Customer ID"
 // @Success 200 {object} models.CustomerResponse
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
+// @Failure 404 {object} models.ErrorResponse "Customer Not Found"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/profile [get]
 func GetCustomer(c *gin.Context) {
@@ -86,6 +87,7 @@ func UpdateCustomer(c *gin.Context) {
 // @Success 200 {object} models.PassResponse
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
 // @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 422 {object} models.ErrorResponse "Unprocessable Entity"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/password [put]
 func UpdatePassword(c *gin.Context) {
@@ -101,6 +103,7 @@ func UpdatePassword(c *gin.Context) {
 // @Success 200 {object} models.MemberResponse
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
 // @Failure 401 {object} models.ErrorResponse "Unauthorized"
+// @Failure 404 {object} models.ErrorResponse "Member Not Found"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Router /customer/{customerId}/member [get]
 func getMemberById(c *gin.Context) {
