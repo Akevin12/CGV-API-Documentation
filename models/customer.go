@@ -1,16 +1,17 @@
 package models
 
 type Customer struct {
-	ID       int    `json:"id"`
-	Name     string `json:"name"`
-	Username string `json:"username"`
-	Email    string `json:"email"`
-	Birthday string `json:"birthday`
-	Gender   string `json:gender`
-	Phone    string `json:"phone"`
-	Address  string `json:"address"`
-	City     string `json:"city"`
-	Cinema   Branch `json:"cinema`
+	ID       int     `json:"id"`
+	Name     string  `json:"name"`
+	Username string  `json:"username"`
+	Email    string  `json:"email"`
+	Password *string `json:"password,omitempty"`
+	Birthday string  `json:"birthday`
+	Gender   string  `json:gender`
+	Phone    string  `json:"phone"`
+	Address  string  `json:"address"`
+	City     string  `json:"city"`
+	Cinema   Branch  `json:"cinema`
 }
 
 type CustomerResponse struct {
